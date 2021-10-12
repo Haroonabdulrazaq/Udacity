@@ -9,10 +9,14 @@ class ListContacts extends Component{
   state ={
     query: ''
   }
-  handleChange(query){
-    this.setState((prevState)=>({
+  handleChange = (query) => {
+    this.setState(()=>({
       query: query.trim(),
     }))
+  }
+  
+  clearQuery= () =>{
+    this.handleChange('')
   }
 
   render() {
@@ -29,6 +33,12 @@ class ListContacts extends Component{
             placeholder="Search Contacts" value={this.state.query}
             onChange={(e)=> this.handleChange(e.target.value)} />
         </div>
+        {query.length >= 1 &&
+          <div className="showing-contact">
+           <span>Showing {showingContacts.length} of {contacts.length} </span>
+           <button onClick={this.clearQuery} >Show all</button>
+          </div>
+        }
         <ol className="contact-list">
             {showingContacts.map(contact => (
               <li key={contact.id} className='contact-list-item'>
